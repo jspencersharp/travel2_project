@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Trip Details</title>
+</head>
+<body>
+    <a href="/main/dashboard">Home</a> | <a href="/logout">logout</a>
+    <h2>Trip Details</h2>
+    <h2>{{cur_trip.destination}}</h2>
+    Planned by: {{cur_trip.tripOrginizer}}<br>
+    Description: {{cur_trip.desc}}<br>
+    Travel Date From: {{cur_trip.dateFrom}}<br>
+    Travel Date To: {{cur_trip.dateTo}}<br>
+
+    <h2>Other users joining the group:</h2>
+    {%for user in cur_trip.user.all%}
+        {%if user.id not in request.session%}
+            <p>{{user.first_name}} {{user.last_name}}</p>
+        {%endif%}
+    {%endfor%}
+
+</body>
+</html>

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Dashboard</title>
+</head>
+<body>
+    <a href="/logout">logout</a>
+
+    <h2>Hello {{request.session.first_name}}!</h2>
+
+    <h4>Your trip schedules:</h4>
+    {%for trip in trips%}
+        {%if trip in cur_user.travel.all%}
+            <p><a href="/main/show/{{trip.id}}"> {{trip.destination}}</a> | {{trip.dateFrom}} | {{trip.dateTo}} | {{trip.desc}}</p>
+        {%endif%}
+    {%endfor%}
+
+    <h4>Other User's Trips:</h4>
+    {%for trip in trips%}
+        {%if trip not in cur_user.travel.all%}
+            <p>{{trip.tripOrginizer}} | <a href="/main/show/{{trip.id}}"> {{trip.destination}}</a> | {{trip.dateFrom}}  | {{trip.dateTo}} | <a href="/main/link/{{trip.id}}">Join Trip</a></p>
+        {%endif%}
+    {%endfor%}
+
+    <a href="/main/addTrip">Add Travel Plan</a>
+</body>
+</html>
